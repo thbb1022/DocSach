@@ -8,7 +8,6 @@
     tools:context=".MainActivity"
     android:background="#094B68"
     >
-
    <FrameLayout
        android:id="@+id/fragmet_container"
        android:layout_width="match_parent"
