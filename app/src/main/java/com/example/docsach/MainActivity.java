@@ -23,13 +23,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    List<Book> lstBook;
     BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        init();
         bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         loadFragment(new HomeFragment());
@@ -67,32 +65,5 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.fragmet_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
-    }
-
-
-    private void init(){
-        lstBook = new ArrayList<>();
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        RecyclerView myrv = (RecyclerView) findViewById(R.id.recycleview_id);
-        RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this, lstBook);
-        myrv.setLayoutManager(new GridLayoutManager(this, 3));
-        myrv.setAdapter(myAdapter);
     }
 }
