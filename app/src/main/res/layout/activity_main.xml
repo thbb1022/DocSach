@@ -1,24 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#35AEE4">
-
-   <FrameLayout
-       android:id="@+id/fragmentContainer"
+    android:background="#122798"
+    >
+   <EditText
+       android:id="@+id/edtTimKiem"
+       android:background="@drawable/search_bar"
        android:layout_width="match_parent"
-       android:layout_height="match_parent"></FrameLayout>
+       android:layout_height="wrap_content"
+       android:layout_marginBottom="5dp"
+       android:layout_marginTop="15dp"
+       android:layout_marginLeft="80dp"
+       android:layout_marginRight="80dp"
+       android:hint="Truyện cần tìm..."
+       android:textColor="#fff"
+       android:textColorHint="#B3ADAD"
+       android:textSize="20sp"
+       android:gravity="center">
+   </EditText>
+   <FrameLayout
+       android:layout_marginTop="60dp"
+       android:id="@+id/fragmet_container"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:background="#156588"
+       app:layout_behavior="@string/appbar_scrolling_view_behavior">
+   </FrameLayout>
 
+   <androidx.recyclerview.widget.RecyclerView
+       android:id="@+id/recycleview_id"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_marginTop="60dp"
+       >
+   </androidx.recyclerview.widget.RecyclerView>
    <com.google.android.material.bottomnavigation.BottomNavigationView
        android:id="@+id/bottomNav"
        android:layout_width="match_parent"
-       android:layout_height="56dp"
-       app:labelVisibilityMode="labeled"
+       android:layout_height="wrap_content"
        android:layout_alignParentBottom="true"
-       android:layout_gravity="start"
        app:menu="@menu/menu"
        android:background="?android:attr/windowBackground">
    </com.google.android.material.bottomnavigation.BottomNavigationView>
