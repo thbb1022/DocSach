@@ -6,23 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#122798"
+    android:background="#094B68"
     >
-   <EditText
+   <androidx.appcompat.widget.SearchView
+       android:id="@+id/action_search"
+       app:searchIcon="@drawable/ic_baseline_search_24"
+       android:background="#094B68"
+       android:layout_marginTop="10dp"
+       android:layout_marginRight="20dp"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentRight="true">
+   </androidx.appcompat.widget.SearchView>
+   <TextView
+       android:layout_marginLeft="10dp"
+       android:drawableLeft="@drawable/ic_baseline_menu_book_24"
        android:id="@+id/edtTimKiem"
-       android:background="@drawable/search_bar"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:layout_marginBottom="5dp"
-       android:layout_marginTop="15dp"
-       android:layout_marginLeft="80dp"
-       android:layout_marginRight="80dp"
-       android:hint="Truyện cần tìm..."
+       android:layout_marginTop="10dp"
+       android:text="        LIBRARY"
        android:textColor="#fff"
-       android:textColorHint="#B3ADAD"
-       android:textSize="20sp"
-       android:gravity="center">
-   </EditText>
+       android:textSize="27sp"
+       android:typeface="sans">
+   </TextView>
    <FrameLayout
        android:layout_marginTop="60dp"
        android:id="@+id/fragmet_container"

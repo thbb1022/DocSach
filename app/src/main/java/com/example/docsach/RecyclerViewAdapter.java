@@ -50,7 +50,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             tv_book_title = (TextView) itemView.findViewById(R.id.book_title_id);
             img_book_thumbnail = (ImageView) itemView.findViewById(R.id.book_img_id);
-
         }
     }
 }
