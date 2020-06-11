@@ -23,5 +23,4 @@
        app:menu="@menu/menu"
        android:background="?android:attr/windowBackground">
    </com.google.android.material.bottomnavigation.BottomNavigationView>
-
 </RelativeLayout>
