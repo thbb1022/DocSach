@@ -8,34 +8,11 @@
     tools:context=".MainActivity"
     android:background="#094B68"
     >
-   <androidx.appcompat.widget.SearchView
-       android:id="@+id/action_search"
-       app:searchIcon="@drawable/ic_baseline_search_24"
-       android:background="#094B68"
-       android:layout_marginTop="10dp"
-       android:layout_marginRight="20dp"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignParentRight="true">
-   </androidx.appcompat.widget.SearchView>
-   <TextView
-       android:layout_marginLeft="10dp"
-       android:drawableLeft="@drawable/ic_baseline_menu_book_24"
-       android:id="@+id/edtTimKiem"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_marginTop="10dp"
-       android:text="        LIBRARY"
-       android:textColor="#fff"
-       android:textSize="27sp"
-       android:typeface="sans">
-   </TextView>
+
    <FrameLayout
-       android:layout_marginTop="60dp"
        android:id="@+id/fragmet_container"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
-       android:background="#156588"
        app:layout_behavior="@string/appbar_scrolling_view_behavior">
    </FrameLayout>
 

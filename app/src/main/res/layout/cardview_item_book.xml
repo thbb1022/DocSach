@@ -9,7 +9,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#1385DF">
+        android:background="#0EC3DA">
         <ImageView
             android:id="@+id/book_img_id"
             android:layout_width="match_parent"
