@@ -10,11 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustPan|stateHidden">
-        <activity android:name=".SearchActivity">
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan">
+<!--        <activity android:name=".SearchActivity">-->
+<!--        </activity>-->
+        <activity android:name=".Signup_Form"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Login_Form">
+
+
+<!--        <activity-->
+<!--            android:name=".MainActivity"-->
+<!--            android:windowSoftInputMode="adjustPan">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
