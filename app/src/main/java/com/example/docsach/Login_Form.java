@@ -29,6 +29,12 @@ public class Login_Form extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login__form);
 
+        //Logo
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.ic_baseline_menu_book_24);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        //
+
         txtEmail = (EditText) findViewById(R.id.txt_email);
         txtPassword = (EditText) findViewById(txt_password);
         btnLogin = (Button) findViewById(R.id.btn_login);

@@ -28,6 +28,13 @@ public class Signup_Form extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup__form);
+
+        //Logo
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.ic_baseline_menu_book_24);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        //
+
         // getSupportActionBar().setTitle("Signup");
 
         txtEmail = (EditText)findViewById(R.id.txt_Email);
