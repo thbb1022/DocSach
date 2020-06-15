@@ -4,54 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Book_Activity">
+    tools:context=".Book_Activity"
+    android:background="#fff"
+    android:orientation="vertical">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:padding="10dp">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="230dp">
             <ImageView
-                android:layout_width="125dp"
-                android:layout_height="170dp"
-                android:background="#2d2d2d"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
                 android:id="@+id/bookthumbnail"
                 android:scaleType="centerCrop" />
+
             <TextView
                 android:id="@+id/txtTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="BookTile"
-                android:layout_marginTop="10dp"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:background="#59000000"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:textStyle="bold|italic"
+                android:textSize="35sp" />
+
             <TextView
                 android:id="@+id/txtCategory"
+                android:layout_width="match_parent"
+                android:layout_height="230dp"
+                android:gravity="center|bottom"
+                android:textColor="#fff"
+                android:textStyle="bold|italic"
+                android:textSize="30sp" />
+
+            <ImageButton
+                android:id="@+id/favbutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Category"
-                android:layout_marginTop="10dp"
-                android:background="#edecec"
-                android:padding="8dp" />
-
-            <TextView
-                android:id="@+id/txtDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Description"
-                android:textSize="18dp"
-                android:layout_marginTop="10dp" />
+                app:srcCompat="@drawable/c"
+                android:layout_marginTop="138dp"
+                android:background="@null"
+                android:layout_marginLeft="305dp"/>
 
 
-        </LinearLayout>
+            <!--            <TextView-->
+<!--                android:id="@+id/txtDescription"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Description"-->
+<!--                android:textSize="18dp"-->
+<!--                android:layout_marginTop="10dp" />-->
 
-
-
+        </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

@@ -69,6 +69,7 @@ public class HomeFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycleview_id);
         lstBook = new ArrayList<>();
+        lstBook.add(new Book("Linh vũ thiên hạ", "(Tiên hiệp)", "description", R.drawable.a));
         lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
         lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
         lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
@@ -78,15 +79,7 @@ public class HomeFragment extends Fragment {
         lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
         lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
         lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a));
+
         Context context = container.getContext();
         RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(context, lstBook);
         recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
