@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "741852294191",
+    "firebase_url": "https://docsach-ad915.firebaseio.com",
+    "project_id": "docsach-ad915",
+    "storage_bucket": "docsach-ad915.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741852294191:android:0a81b0a2b6535006192ada",
+        "android_client_info": {
+          "package_name": "com.example.docsach"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "741852294191-kncp7jlg9514grv56acdrnu9jaa34ndf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.docsach",
+            "certificate_hash": "ed9dbdc0b805a7e37d8194d23d7967c9c956afca"
+          }
+        },
+        {
+          "client_id": "741852294191-cq5h731hb1afn9gkiv0o5t7a33kakegp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBecY2zqahuM_cDOuOQzskcXMhOuAkBxhc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "741852294191-cq5h731hb1afn9gkiv0o5t7a33kakegp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
