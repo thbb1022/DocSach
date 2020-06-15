@@ -1,12 +1,20 @@
 package com.example.docsach;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 /**
@@ -58,7 +66,29 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById((R.id.recycleview_id));
+        Button btnLogOut = (Button)view.findViewById(R.id.btnLogout);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+            Uri photoUrl = user.getPhotoUrl();
+            TextView s = (TextView) view.findViewById(R.id.username11);
+            s.setText(email);
+        }
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
+            }
+        });
+
+
+        return view;
+
     }
 }

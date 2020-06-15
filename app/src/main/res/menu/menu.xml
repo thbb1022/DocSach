@@ -10,12 +10,13 @@
         android:title="favorite">
     </item>
 
-    <item android:id="@+id/navProfile"
-        android:icon="@drawable/ic_person_black_24dp"
-        android:title="Profile">
-    </item>
+
     <item android:id="@+id/navAdd"
         android:icon="@drawable/ic_add_black_24dp"
         android:title="Add">
+    </item>
+    <item android:id="@+id/navProfile"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="Profile">
     </item>
 </menu>
