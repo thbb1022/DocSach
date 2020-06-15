@@ -10,22 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.Toast;
-
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
-import java.util.List;
+import static com.example.docsach.R.id.txt_password;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
@@ -58,9 +51,15 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(fragment);
                     return true;
                 case R.id.navProfile:
-                    fragment = new ProfileFragment();
-                    loadFragment(fragment);
-                    return true;
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user == null) {
+                        fragment = new LoginFragment();
+                        loadFragment(fragment);
+                        return true;
+
+                    }else {  fragment = new ProfileFragment();
+                        loadFragment(fragment);
+                        return true;}
                 case R.id.navAdd:
                     fragment = new AddFragment();
                     loadFragment(fragment);
@@ -69,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,5 +96,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
     }
+    public void btn_signupForm (View view) {
 
+        startActivity(new Intent(getApplicationContext(),Signup_Form.class));
+    }
 }

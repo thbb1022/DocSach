@@ -2,11 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#158F84">
+    android:background="#158F84"
+    android:orientation="vertical"
+    >
+
     <TextView
+        android:layout_width="421dp"
+        android:layout_height="wrap_content"
+        android:text="PROFILE"
+        android:textAlignment="center"
+        android:textSize="50sp"></TextView>
+
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="50sp"
-        android:text="PROFILE">
-    </TextView>
+        android:text="Xin Chào! "
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/username11"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="top"
+        android:onClick="btn_signupForm"
+        android:text="TextView"
+        android:textSize="50dp" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đăng Xuất" />
 </LinearLayout>

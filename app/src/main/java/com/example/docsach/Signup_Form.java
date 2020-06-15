@@ -76,7 +76,7 @@ public class Signup_Form extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
 
-                                        startActivity(new Intent(getApplicationContext(), Login_Form.class));
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                     } else {
                                         Toast.makeText(Signup_Form.this, "**Fail**", Toast.LENGTH_SHORT).show();
 

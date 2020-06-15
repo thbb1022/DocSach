@@ -13,8 +13,8 @@
 <!--        <activity android:name=".SearchActivity">-->
 <!--        </activity>-->
         <activity android:name=".Signup_Form"></activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Login_Form">
+    <!--        <activity android:name=".MainActivity" />-->
+        <activity android:name=".MainActivity">
 
 
 <!--        <activity-->
