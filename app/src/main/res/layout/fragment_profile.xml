@@ -2,37 +2,218 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#158F84"
+    android:background="@color/background"
     android:orientation="vertical"
     >
 
-    <TextView
-        android:layout_width="421dp"
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+    <LinearLayout
+        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:background="@color/colorXanhNhat"
+        android:orientation="vertical"
+
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:src="@drawable/profile"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thanh"
+            android:textColor="@color/background"
+            android:textStyle="bold"
+            android:textSize="21dp"/>
+    </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="280dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="155dp"
+            android:layout_centerHorizontal="true"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="3">
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Books"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
+                    android:textColor="@color/colorXanhNhat"
+                    />
+                
+            </LinearLayout>
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Favorite"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="90"
+                        android:textStyle="bold"
+                        android:textSize="15dp"
+                        android:textColor="@color/colorXanhNhat"
+                        />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Following "/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="100"
+                        android:textStyle="bold"
+                        android:textSize="15dp"
+                        android:textColor="@color/colorXanhNhat"
+                        />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+        ></RelativeLayout>
+    <LinearLayout
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="PROFILE"
-        android:textAlignment="center"
-        android:textSize="50sp"></TextView>
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+            <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/email"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/username11"
+                android:paddingLeft="15dp"
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                android:text="admin@gmail.com"
+                />
 
 
-    <TextView
-        android:id="@+id/textView"
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+    ><TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Xin Chào! "
-        android:textSize="30dp" />
+        android:paddingLeft="15dp"
+        android:gravity=""
+        android:textSize="20dp"
+        android:text="Danh Sách Đọc gần đây"/>
 
-    <TextView
-        android:id="@+id/username11"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:gravity="top"
-        android:onClick="btn_signupForm"
-        android:text="TextView"
-        android:textSize="50dp" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/book_img_id"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="160dp"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:background="#fff"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/book_title_id"-->
+<!--                    android:textColor="#2d2d2d"-->
+<!--                    android:textSize="13sp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:text="Book title"/>-->
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="120dp"
+            android:layout_height="190dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="4dp"
+            >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#0EC3DA">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/a"
+                    android:background="#fff"/>
+                <TextView
+                    android:id="@+id/book_title_id"
+                    android:textColor="#2d2d2d"
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:text="DORE MON  "/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+
 
     <Button
+
+        android:layout_gravity="center"
         android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_rounded"
+        android:textColor="@color/background"
         android:text="Đăng Xuất" />
 </LinearLayout>

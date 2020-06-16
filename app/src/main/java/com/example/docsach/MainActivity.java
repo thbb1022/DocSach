@@ -42,10 +42,16 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navHome:
+                    if (getSupportActionBar() == null) {
+                        getSupportActionBar().hide();
+                    }
                     fragment = new HomeFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navFavorite:
+                    if (getSupportActionBar() == null) {
+                        getSupportActionBar().hide();
+                    }
                     fragment = new FavoriteFragment();
                     loadFragment(fragment);
                     return true;
@@ -57,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     }else {  fragment = new ProfileFragment();
+                        if (getSupportActionBar() != null) {
+                            getSupportActionBar().hide();
+                        }
                         loadFragment(fragment);
                         return true;}
                 case R.id.navAdd:
