@@ -51,16 +51,15 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navHome:
-                    if (getSupportActionBar() == null) {
-                        getSupportActionBar().hide();
-                    }
+
+                    getSupportActionBar().show();
                     fragment = new HomeFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navFavorite:
-                    if (getSupportActionBar() == null) {
-                        getSupportActionBar().hide();
-                    }
+
+                        getSupportActionBar().show();
+
                     fragment = new FavoriteFragment();
                     loadFragment(fragment);
                     return true;

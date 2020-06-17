@@ -16,7 +16,7 @@ public class helloActivity extends AppCompatActivity {
             public void run()
             {
                 try {
-                    sleep(2500);
+                    sleep(1500);
                 } catch (Exception e) {
 
                 }

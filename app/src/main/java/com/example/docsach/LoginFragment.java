@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ import static com.example.docsach.R.id.txt_password;
 public class LoginFragment extends Fragment {
 
     private Context mContext;
+    private ProgressBar progressBar;
     EditText txtEmail, txtPassword;
     Button btnLogin;
     private FirebaseAuth firebaseAuth;
@@ -48,7 +50,8 @@ public class LoginFragment extends Fragment {
         txtEmail = (EditText)view.findViewById(R.id.txt_email);
         txtPassword = (EditText)view.findViewById(txt_password);
         btnLogin = (Button)view.findViewById(R.id.btn_login);
-
+        progressBar = (ProgressBar) view.findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.GONE);
         firebaseAuth = FirebaseAuth.getInstance();
 
 
@@ -60,23 +63,27 @@ public class LoginFragment extends Fragment {
                 String password = txtPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(mContext, "Please Enter Email", Toast.LENGTH_SHORT).show();
+                    txtEmail.setError(getString(R.string.input_error_email));
+                    txtEmail.requestFocus();
                     return;
                 }
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(mContext, "Please Enter Password", Toast.LENGTH_SHORT).show();
+                    txtPassword.setError(getString(R.string.input_error_password));// check pass ky tu dac biet
+                    txtPassword.requestFocus();
                     return;
                 }
                 if(password.length()<6){
-                    Toast.makeText(mContext, "Password To Short", Toast.LENGTH_SHORT).show();
+                    txtPassword.setError(getString(R.string.input_error_password_length)); // check pass nho hon 6kitu
+                    return;
 
                 }
-
+                progressBar.setVisibility(View.VISIBLE);
                 firebaseAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    progressBar.setVisibility(View.GONE);
                                     startActivity(new Intent(mContext, MainActivity.class));
 
 

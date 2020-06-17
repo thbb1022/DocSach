@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -18,11 +19,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.regex.Pattern;
 
 public class Signup_Form extends AppCompatActivity {
     EditText txtEmail,txtUserName,txtPassword,txtConfirmPassword;
     RadioButton rdMale,rdFemale;
     Button btnRegister;
+    private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,8 @@ public class Signup_Form extends AppCompatActivity {
         rdMale = (RadioButton)findViewById(R.id.rd_Male);
         rdFemale = (RadioButton)findViewById(R.id.rd_Femal);
         btnRegister = (Button) findViewById(R.id.btn_Register);
+        progressBar = findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.GONE);
 
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -51,39 +58,77 @@ public class Signup_Form extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = txtEmail.getText().toString().trim();
-                String username = txtUserName.getText().toString().trim();
+                final String email = txtEmail.getText().toString().trim();
+                final String username = txtUserName.getText().toString().trim();
                 String password = txtPassword.getText().toString().trim();
                 String confirmpassword = txtConfirmPassword.getText().toString().trim();
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(Signup_Form.this, "Please Enter Email", Toast.LENGTH_SHORT).show();
+                //Check ky tu dac biet
+                Pattern p = Pattern.compile("[^a-bA-B0-9]");
+                if (TextUtils.isEmpty(username)) {
+                   txtUserName.setError(getString(R.string.input_error_name));
+                    txtUserName.requestFocus();
+                    return;
+                } else {if(p.matcher(username).find()){
+                    txtUserName.setError(getString(R.string.input_error_name_key)); // check name ky tu dac biet
+                    txtUserName.requestFocus();
                     return;
                 }
-                if (TextUtils.isEmpty(username)) {
-                    Toast.makeText(Signup_Form.this, "Please Enter UserName", Toast. LENGTH_SHORT).show();
+                }
+
+                if (TextUtils.isEmpty(email)) {
+                    txtEmail.setError(getString(R.string.input_error_email));
+                    txtEmail.requestFocus();
                     return;
                 }
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(Signup_Form.this, "Please Enter Password", Toast.LENGTH_SHORT).show();
+                   txtPassword.setError(getString(R.string.input_error_password));
+                   txtPassword.requestFocus();
+                    return;
+                }else {if(p.matcher(password).find()){
+                    txtPassword.setError(getString(R.string.input_error_password_key)); // check pass ky tu dac biet
+                    txtPassword.requestFocus();
                     return;
                 }
+                }
                 if (TextUtils.isEmpty(confirmpassword)) {
-                    Toast.makeText(Signup_Form.this, "Please Enter ConfirmPassword", Toast.LENGTH_SHORT).show();
+                    txtConfirmPassword.setError(getString(R.string.input_error_password));
+                    txtConfirmPassword.requestFocus();
                     return;
                 }
                 if(password.length()<6){
-                    Toast.makeText(Signup_Form.this, "Password To Short", Toast.LENGTH_SHORT).show();
-
+                    txtPassword.setError(getString(R.string.input_error_password_length)); // check pass nho hon 6kitu
+                    return;
                 }
 
                 if(password.equals(confirmpassword)){
+                    progressBar.setVisibility(View.VISIBLE);
                     firebaseAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(Signup_Form.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+                                        User user = new User(
+                                                username,email
+                                        );
+                                        // them user vao db
+                                        FirebaseDatabase.getInstance().getReference("User")
+                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
 
-                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                progressBar.setVisibility(View.GONE);
+                                                if (task.isSuccessful()) {
+                                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                }else
+                                                {
+
+                                                    Toast.makeText(Signup_Form.this, "**Fail11**", Toast.LENGTH_SHORT).show();
+                                                }
+
+                                            }
+                                        });
+
                                     } else {
                                         Toast.makeText(Signup_Form.this, "**Fail**", Toast.LENGTH_SHORT).show();
 
