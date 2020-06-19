@@ -16,12 +16,16 @@ public class Book_Activity extends AppCompatActivity {
     private TextView tvTitle, tvCategory;
     private ImageView img;
     private ImageButton fav;
+    private Button addtruyen;
+    String stt;
     @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_book);
         fav = (ImageButton) findViewById(R.id.favbutton);
+        addtruyen = (Button) findViewById(R.id.btnAddTruyen);
         tvTitle = (TextView) findViewById(R.id.txtTitle);
         tvCategory = (TextView) findViewById(R.id.txtCategory);
 //        tvDescription = (TextView) findViewById(R.id.txtDescription);
@@ -32,14 +36,23 @@ public class Book_Activity extends AppCompatActivity {
         String Category = intent.getExtras().getString("Category");
 //        String Description = intent.getExtras().getString("Description");
         int image = intent.getExtras().getInt("Thumbnail");
-
+        stt = intent.getExtras().getString("stt");
         tvTitle.setText(Title);
         tvCategory.setText(Category);
 //        tvDescription.setText(Description);
         img.setImageResource(image);
+        addtruyen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent docTruyen = new Intent(getApplicationContext(), Content.class);
+                docTruyen.putExtra("stt", stt);
+                getApplicationContext().startActivity(docTruyen);
+            }
+        });
         fav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Toast.makeText(Book_Activity.this,"Đã thêm truyện vào danh sách yêu thích!",Toast.LENGTH_LONG).show();
 
             }

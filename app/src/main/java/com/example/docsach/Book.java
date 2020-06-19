@@ -5,15 +5,25 @@ public class Book {
     private String Category;
     private String Description;
     private int Thumbnail;
+    public String stt;
 
     public Book(){
     }
 
-    public Book(String title, String category, String description, int thumbnail) {
+    public void setStt(String stt) {
+        this.stt = stt;
+    }
+
+    public String getStt() {
+        return stt;
+    }
+
+    public Book(String title, String category, String description, int thumbnail, String stt) {
         Title = title;
         Category = category;
         Description = description;
         Thumbnail = thumbnail;
+        this.stt = stt;
     }
 
     public String getTitle() {
@@ -31,6 +41,7 @@ public class Book {
     public int getThumbnail() {
         return Thumbnail;
     }
+
 
     public void setTitle(String title) {
         Title = title;
