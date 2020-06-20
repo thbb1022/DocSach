@@ -59,6 +59,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mData.size();
     }
 
+    public void searchList(List<Book> list){
+        mData = list;
+        notifyDataSetChanged();
+    }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView tv_book_title;
         ImageView img_book_thumbnail;
@@ -71,5 +76,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             cardView = (CardView)  itemView.findViewById(R.id.cardview_id);
         }
     }
+
 }
 
