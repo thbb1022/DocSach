@@ -5,16 +5,16 @@
         android:title="Home">
     </item>
 
+    <item android:id="@+id/navLib"
+        android:icon="@drawable/ic_baseline_library_books_24"
+        android:title="Library">
+    </item>
+
     <item android:id="@+id/navFavorite"
         android:icon="@drawable/ic_favorite_black_24dp"
         android:title="Favorite">
     </item>
 
-
-    <item android:id="@+id/navLib"
-        android:icon="@drawable/ic_baseline_library_books_24"
-        android:title="Library">
-    </item>
     <item android:id="@+id/navProfile"
         android:icon="@drawable/ic_person_black_24dp"
         android:title="Profile">

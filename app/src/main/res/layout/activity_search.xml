@@ -10,24 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="60dp">
         <EditText
+
+            android:drawableLeft = "@drawable/ic_baseline_search_24"
             android:id="@+id/search_box_id"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginRight="80dp"
+            android:layout_marginRight="20dp"
             android:hint="Nhập nội dung cần tìm..."
             android:textColorHint="#fff"
-            android:gravity="center"
             android:background="@drawable/search_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <Button
-            android:id="@+id/btnTimKiem"
-            android:background="@drawable/ic_baseline_search_24"
-            android:layout_marginLeft="340dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp">
-        </Button>
+
     </FrameLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="60dp"
