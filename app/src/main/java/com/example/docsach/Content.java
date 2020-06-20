@@ -25,6 +25,11 @@ public class Content extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
 
+        //logo
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.ic_baseline_menu_book_24);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         textView = findViewById(R.id.tvContent);
         Intent intent = getIntent();
         stt = intent.getExtras().getString("stt");

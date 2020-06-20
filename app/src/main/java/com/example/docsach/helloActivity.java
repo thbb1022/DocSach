@@ -10,6 +10,7 @@ public class helloActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_hello);
         //Dùng cài đặt sau 5 giây màn hình tự chuyển
         Thread bamgio=new Thread(){
