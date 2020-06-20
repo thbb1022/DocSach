@@ -70,6 +70,5 @@ public class SearchActivity extends AppCompatActivity {
            }
        }
        myAdapter.searchList(tmp);
-
     }
 }

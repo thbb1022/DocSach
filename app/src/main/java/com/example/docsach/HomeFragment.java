@@ -68,7 +68,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycleview_id);
-
         Context context = container.getContext();
         RecyclerViewAdapter myAdapter;
         myData m = new myData();
