@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         loadFragment(fragment);
                         return true;}
-                case R.id.navAdd:
-                    fragment = new AddFragment();
+                case R.id.navLib:
+                    fragment = new LibraryFragment();
                     loadFragment(fragment);
                     return true;
             }

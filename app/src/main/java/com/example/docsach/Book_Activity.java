@@ -22,6 +22,10 @@ public class Book_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //logo
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.ic_baseline_menu_book_24);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         setContentView(R.layout.activity_book);
         fav = (ImageButton) findViewById(R.id.favbutton);

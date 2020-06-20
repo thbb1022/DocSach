@@ -68,20 +68,11 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycleview_id);
-        lstBook = new ArrayList<>();
-        lstBook.add(new Book("Linh Vũ Thiên Hạ", "(Tiên hiệp)", "description", R.drawable.a, "0"));
-        lstBook.add(new Book("Tinh Thần Biến", "(Tiên hiệp)", "description", R.drawable.b, "1"));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a, "2"));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a, "3"));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a, "4"));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a, "5"));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a, "6"));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a, "7"));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a, "8"));
-        lstBook.add(new Book("Tên truyen", "category", "description", R.drawable.a, "9"));
-
         Context context = container.getContext();
-        RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(context, lstBook);
+        RecyclerViewAdapter myAdapter;
+        myData m = new myData();
+        lstBook = m.myList();
+        myAdapter = new RecyclerViewAdapter(context, lstBook);
         recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
         recyclerView.setAdapter(myAdapter);
         return view;
