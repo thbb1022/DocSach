@@ -21,6 +21,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Signup_Form extends AppCompatActivity {
@@ -62,21 +63,35 @@ public class Signup_Form extends AppCompatActivity {
                 final String username = txtUserName.getText().toString().trim();
                 String password = txtPassword.getText().toString().trim();
                 String confirmpassword = txtConfirmPassword.getText().toString().trim();
-                //Check ky tu dac biet
-                Pattern p = Pattern.compile("[^a-bA-B0-9]");
+                String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}";
+//                        (?=.*[0-9]) a digit must occur at least once
+//                        (?=.*[a-z]) a lower case letter must occur at least once
+//                        (?=.*[A-Z]) an upper case letter must occur at least once
+//                        (?=.*[@#$%^&+=]) a special character must occur at least once
+
+                    String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+                    Pattern pp = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+                Pattern pPas = Pattern.compile(pattern);
+                Pattern p = Pattern.compile("[^a-zA-Z0-9]");    //Check ky tu dac biet
                 if (TextUtils.isEmpty(username)) {
                    txtUserName.setError(getString(R.string.input_error_name));
                     txtUserName.requestFocus();
                     return;
-                } else {if(p.matcher(username).find()){
-                    txtUserName.setError(getString(R.string.input_error_name_key)); // check name ky tu dac biet
+                }
+                if(p.matcher(username).find()){
+                    txtUserName.setError(getString(R.string.input_error_name_key)); // check username ko co ky tu dac biet
                     txtUserName.requestFocus();
                     return;
                 }
+                if(!pp.matcher(email).find()){
+                    txtEmail.setError(getString(R.string.input_error_email1)); // kiem tra phai dung la mail
+                    txtEmail.requestFocus();
+                    return;
                 }
 
+
                 if (TextUtils.isEmpty(email)) {
-                    txtEmail.setError(getString(R.string.input_error_email));
+                    txtEmail.setError(getString(R.string.input_error_email));  //check mail rong
                     txtEmail.requestFocus();
                     return;
                 }
@@ -84,8 +99,9 @@ public class Signup_Form extends AppCompatActivity {
                    txtPassword.setError(getString(R.string.input_error_password));
                    txtPassword.requestFocus();
                     return;
-                }else {if(p.matcher(password).find()){
-                    txtPassword.setError(getString(R.string.input_error_password_key)); // check pass ky tu dac biet
+                }
+                else {if(!pPas.matcher(password).find()){
+                    txtPassword.setError(getString(R.string.input_error_password_key)); // check pass phuc tap
                     txtPassword.requestFocus();
                     return;
                 }

@@ -11,6 +11,10 @@ public class helloActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hello);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
         //Dùng cài đặt sau 5 giây màn hình tự chuyển
         Thread bamgio=new Thread(){
             public void run()

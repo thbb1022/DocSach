@@ -67,11 +67,7 @@ public class LoginFragment extends Fragment {
                     txtEmail.requestFocus();
                     return;
                 }
-                if (TextUtils.isEmpty(password)) {
-                    txtPassword.setError(getString(R.string.input_error_password));// check pass ky tu dac biet
-                    txtPassword.requestFocus();
-                    return;
-                }
+
                 if(password.length()<6){
                     txtPassword.setError(getString(R.string.input_error_password_length)); // check pass nho hon 6kitu
                     return;

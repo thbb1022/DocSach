@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,11 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -62,22 +69,44 @@ public class ProfileFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    public static final String TAG = MainActivity.class.getSimpleName(); //debug log
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById((R.id.recycleview_id));
         Button btnLogOut = (Button)view.findViewById(R.id.btnLogout);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase database =FirebaseDatabase.getInstance();
+        DatabaseReference myData = database.getReference("User");
+
         if (user != null) {
             // Name, email address, and profile photo Url
-            String name = user.getDisplayName();
+            String id = user.getUid();
             String email = user.getEmail();
             Uri photoUrl = user.getPhotoUrl();
-            TextView s = (TextView) view.findViewById(R.id.username11);
-            s.setText(email);
+            TextView EmailInfo = (TextView) view.findViewById(R.id.emailInfo);
+            final TextView UserNameInfo = (TextView) view.findViewById(R.id.usernameInfo);
+            EmailInfo.setText(email);
+
+
+            myData.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String name1 = dataSnapshot.child("name").getValue().toString();
+                    UserNameInfo.setText(name1);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+
+
+            });
+
         }
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +115,7 @@ public class ProfileFragment extends Fragment {
                 startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
             }
         });
+
 
 
         return view;

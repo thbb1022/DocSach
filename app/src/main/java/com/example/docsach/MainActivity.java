@@ -58,14 +58,15 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navFavorite:
 
-                        getSupportActionBar().show();
-
                     fragment = new FavoriteFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navProfile:
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user == null) {
+                        if (getSupportActionBar() != null) {
+                            getSupportActionBar().hide();
+                        }
                         fragment = new LoginFragment();
                         loadFragment(fragment);
                         return true;
