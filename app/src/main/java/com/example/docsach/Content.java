@@ -25,8 +25,8 @@ public class Content extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
-        getSupportActionBar().hide();
 
+        getSupportActionBar().hide();
         //logo
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.ic_baseline_menu_book_24);

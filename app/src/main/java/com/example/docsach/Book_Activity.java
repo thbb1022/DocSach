@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,12 +29,18 @@ public class Book_Activity extends AppCompatActivity {
     private Button doctruyen;
     String Title;
     Bookitem truyen;
-
+    private DatabaseReference mDatabase;
     String stt;
     @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //logo
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.ic_baseline_menu_book_24);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
 
         setContentView(R.layout.activity_book);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -101,7 +109,22 @@ public class Book_Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(Book_Activity.this,"Đã thêm truyện vào danh sách yêu thích!",Toast.LENGTH_LONG).show();
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    String uID = user.getUid().toString();
+                    String bookID = stt;
+                    //write data
+                    mDatabase = FirebaseDatabase.getInstance().getReference();
+                    Favorite_item fv = new Favorite_item(uID, bookID);
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    String key = database.getReference("Favorite").push().getKey();//generate fav_id
+
+                    mDatabase.child("Favorite").child(key).setValue(fv);
+
+                    Toast.makeText(Book_Activity.this,"Đã thêm truyện vào danh sách yêu thích!",Toast.LENGTH_LONG).show();
+                }else
+                    Toast.makeText(Book_Activity.this,"Bạn cần phải đăng nhập trước đã!",Toast.LENGTH_LONG).show();
 
             }
         });
