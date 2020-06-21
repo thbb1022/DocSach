@@ -9,15 +9,15 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:padding="10dp"
             android:id="@+id/tvContent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
+            android:layout_height="match_parent"
             android:textSize="25dp"
             android:background="#FFF"
             android:textColor="#0E0E0E"

@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(fragment);
                     return true;
                 case R.id.navFavorite:
-
+                    getSupportActionBar().show();
                     fragment = new FavoriteFragment();
                     loadFragment(fragment);
                     return true;
@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
                         loadFragment(fragment);
                         return true;}
                 case R.id.navLib:
+                    getSupportActionBar().show();
                     fragment = new LibraryFragment();
                     loadFragment(fragment);
                     return true;
