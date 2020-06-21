@@ -95,9 +95,8 @@ public class FavoriteFragment extends Fragment {
         lstRoot = m.myList();
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        uID = user.getUid().toString();
-        Log.d("IDDDD1", uID);
         if (user != null) {
+            uID = user.getUid().toString();
             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
             DatabaseReference moviesRef = rootRef.child("Favorite");
             ValueEventListener eventListener = new ValueEventListener() {
@@ -110,7 +109,9 @@ public class FavoriteFragment extends Fragment {
                             Log.d("aaa", uID);
                             String stt = item.bookId;
                             for(Book b: lstRoot){
-                                if(stt.equals(b.getStt().toString()) ){
+                                int x =Integer.parseInt(stt) - 1;
+                                String s = String.valueOf(x);
+                                if(s.equals(b.getStt().toString()) ){
                                     lstBook.add(b);
                                 }
                             }
