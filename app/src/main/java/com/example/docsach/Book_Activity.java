@@ -1,5 +1,7 @@
 package com.example.docsach;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -12,59 +14,94 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Book_Activity extends AppCompatActivity {
-    private TextView tvTitle, tvCategory;
+    private TextView tvTitle, tvTG,tvTL,tvTT,tvMT;
     private ImageView img;
     private ImageButton fav;
-    private Button addtruyen;
+    private Button doctruyen;
+    String Title;
+    Bookitem truyen;
+
     String stt;
     @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //logo
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.ic_baseline_menu_book_24);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         setContentView(R.layout.activity_book);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myData = database.getReference();
         fav = (ImageButton) findViewById(R.id.favbutton);
-        addtruyen = (Button) findViewById(R.id.btnAddTruyen);
+        doctruyen = (Button) findViewById(R.id.btnAddTruyen);
         tvTitle = (TextView) findViewById(R.id.txtTitle);
-        tvCategory = (TextView) findViewById(R.id.txtCategory);
-//        tvDescription = (TextView) findViewById(R.id.txtDescription);
+        tvTG=(TextView) findViewById(R.id.txtTacGia);
+        tvTT=(TextView) findViewById(R.id.txtTenTruyen);
+        tvTL =(TextView)findViewById(R.id.txtTheLoai);
+        tvMT =(TextView) findViewById(R.id.tvMota) ;
         img = (ImageView) findViewById(R.id.bookthumbnail);
 
         Intent intent = getIntent();
-        String Title = intent.getExtras().getString("Title");
-        String Category = intent.getExtras().getString("Category");
-//        String Description = intent.getExtras().getString("Description");
+        Title = intent.getExtras().getString("Title");
         int image = intent.getExtras().getInt("Thumbnail");
         stt = intent.getExtras().getString("stt");
+        stt = String.valueOf(Integer.parseInt(stt) + 1);
         tvTitle.setText(Title);
-        tvCategory.setText(Category);
-//        tvDescription.setText(Description);
+
         img.setImageResource(image);
-        addtruyen.setOnClickListener(new View.OnClickListener() {
+        myData.child("Book").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                truyen = dataSnapshot.getValue(Bookitem.class);
+                if(truyen.BookID.contains(stt)){
+                    tvTG.setText(truyen.BookAuthor);
+                    tvTitle.setText(truyen.BookName);
+                    tvTL.setText(truyen.BookCategory);
+                    tvTT.setText(truyen.BookName);
+                    tvMT.setText(truyen.BookDescription);
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        doctruyen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent docTruyen = new Intent(getApplicationContext(), Content.class);
                 docTruyen.putExtra("stt", stt);
+                docTruyen.putExtra("TenTruyen", Title);
                 getApplicationContext().startActivity(docTruyen);
+
             }
         });
         fav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
-                    Toast.makeText(Book_Activity.this,"Đã thêm truyện vào danh sách yêu thích!",Toast.LENGTH_LONG).show();
-                }else
-                    Toast.makeText(Book_Activity.this,"Logggggginnnnn!",Toast.LENGTH_LONG).show();
+                Toast.makeText(Book_Activity.this,"Đã thêm truyện vào danh sách yêu thích!",Toast.LENGTH_LONG).show();
 
             }
         });

@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class Content extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content);
+        getSupportActionBar().hide();
 
         //logo
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -32,8 +34,15 @@ public class Content extends AppCompatActivity {
 
         textView = findViewById(R.id.tvContent);
         Intent intent = getIntent();
+        TextView textView2 = (TextView)findViewById(R.id.txttr);
+        String text = intent.getStringExtra("TenTruyen");
+        Log.d("TenTruyen",text);
+
+//        String text = intent.getStringExtra("TenTruyen");
+       textView2.setText(text);
+
         stt = intent.getExtras().getString("stt");
-        stt = String.valueOf(Integer.parseInt(stt) + 1);
+//        stt = String.valueOf(Integer.parseInt(stt) + 1);
         myData.child("Book").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

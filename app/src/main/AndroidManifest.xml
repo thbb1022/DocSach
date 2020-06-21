@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustPan|stateHidden">
-        <activity android:name=".Content"></activity>
+        <activity android:name=".Content" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".Book_Activity" /> <!-- <activity android:name=".SearchActivity"> -->
         <!-- </activity> -->
