@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Matcher;
@@ -30,6 +32,7 @@ public class Signup_Form extends AppCompatActivity {
     Button btnRegister;
     private ProgressBar progressBar;
     private FirebaseAuth firebaseAuth;
+    public static final String TAG = Signup_Form.class.getSimpleName(); //debug log
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +55,6 @@ public class Signup_Form extends AppCompatActivity {
         btnRegister = (Button) findViewById(R.id.btn_Register);
         progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
-
-
         firebaseAuth = FirebaseAuth.getInstance();
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -63,15 +64,8 @@ public class Signup_Form extends AppCompatActivity {
                 final String username = txtUserName.getText().toString().trim();
                 String password = txtPassword.getText().toString().trim();
                 String confirmpassword = txtConfirmPassword.getText().toString().trim();
-                String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}";
-//                        (?=.*[0-9]) a digit must occur at least once
-//                        (?=.*[a-z]) a lower case letter must occur at least once
-//                        (?=.*[A-Z]) an upper case letter must occur at least once
-//                        (?=.*[@#$%^&+=]) a special character must occur at least once
-
                     String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
                     Pattern pp = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-                Pattern pPas = Pattern.compile(pattern);
                 Pattern p = Pattern.compile("[^a-zA-Z0-9]");    //Check ky tu dac biet
                 if (TextUtils.isEmpty(username)) {
                    txtUserName.setError(getString(R.string.input_error_name));
@@ -84,7 +78,7 @@ public class Signup_Form extends AppCompatActivity {
                     return;
                 }
                 if(!pp.matcher(email).find()){
-                    txtEmail.setError(getString(R.string.input_error_email1)); // kiem tra phai dung la mail
+                    txtEmail.setError(getString(R.string.input_error_email_invalid)); // kiem tra phai dung la mail
                     txtEmail.requestFocus();
                     return;
                 }
@@ -100,12 +94,7 @@ public class Signup_Form extends AppCompatActivity {
                    txtPassword.requestFocus();
                     return;
                 }
-                else {if(!pPas.matcher(password).find()){
-                    txtPassword.setError(getString(R.string.input_error_password_key)); // check pass phuc tap
-                    txtPassword.requestFocus();
-                    return;
-                }
-                }
+
                 if (TextUtils.isEmpty(confirmpassword)) {
                     txtConfirmPassword.setError(getString(R.string.input_error_password));
                     txtConfirmPassword.requestFocus();
@@ -114,7 +103,23 @@ public class Signup_Form extends AppCompatActivity {
                 if(password.length()<6){
                     txtPassword.setError(getString(R.string.input_error_password_length)); // check pass nho hon 6kitu
                     return;
-                }
+                }//check email already exist or not.
+                firebaseAuth.fetchSignInMethodsForEmail(email)
+                        .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+
+                                boolean isNewUser = task.getResult().getSignInMethods().isEmpty();
+
+                                if (!isNewUser) {
+                                    Log.e("TAG", "Is Old User!");
+                                    txtEmail.setError(getString(R.string.input_error_email_has_already));
+                                    txtPassword.requestFocus();
+                                    return;
+                                }
+
+                            }
+                        });
 
                 if(password.equals(confirmpassword)){
                     progressBar.setVisibility(View.VISIBLE);
@@ -139,13 +144,14 @@ public class Signup_Form extends AppCompatActivity {
                                                 }else
                                                 {
 
-                                                    Toast.makeText(Signup_Form.this, "**Fail11**", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(Signup_Form.this, "**lOGIN FAIL**", Toast.LENGTH_SHORT).show();
                                                 }
 
                                             }
                                         });
 
                                     } else {
+                                        progressBar.setVisibility(View.INVISIBLE);
                                         Toast.makeText(Signup_Form.this, "**Fail**", Toast.LENGTH_SHORT).show();
 
                                     }

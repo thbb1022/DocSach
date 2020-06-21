@@ -2,7 +2,6 @@
     <string name="app_name">"LIBRARY"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="input_error_name">name required</string>
     <string name="input_error_name_key">username not $%^@ (</string>
     <string name="input_error_email">email required</string>
@@ -12,5 +11,5 @@
     <string name="input_error_password_length">password should be atleast 6 characters long</string>
     <string name="registration_success">Registered Successfully</string>
     <string name="input_error_email_invalid">enter a valid email</string>
-    <string name="input_error_email1">Enter a valid email address</string>
+    <string name="input_error_email_has_already">email has already been taken</string>
 </resources>
