@@ -40,6 +40,7 @@ public class Book_Activity extends AppCompatActivity {
     String stt;
     boolean check = true;
     String bookID;
+    DataSnapshot del;
 
     @SuppressLint("CutPasteId")
     @Override
@@ -54,7 +55,7 @@ public class Book_Activity extends AppCompatActivity {
 
         setContentView(R.layout.activity_book);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myData = database.getReference();
+        final DatabaseReference myData = database.getReference();
         fav = (Button) findViewById(R.id.favbutton);
         doctruyen = (Button) findViewById(R.id.btnAddTruyen);
         tvTitle = (TextView) findViewById(R.id.txtTitle);
@@ -66,7 +67,7 @@ public class Book_Activity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Title = intent.getExtras().getString("Title");
-        int image = intent.getExtras().getInt("Thumbnail");
+        final int image = intent.getExtras().getInt("Thumbnail");
         stt = intent.getExtras().getString("stt");
         stt = String.valueOf(Integer.parseInt(stt) + 1);
         tvTitle.setText(Title);
@@ -117,12 +118,13 @@ public class Book_Activity extends AppCompatActivity {
         });
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+        fav.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
 
         if (user != null) {
             uID = user.getUid().toString();
             bookID = stt;
             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference moviesRef = rootRef.child("Favorite");
+            DatabaseReference bookRef = rootRef.child("Favorite");
             ValueEventListener eventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -130,6 +132,7 @@ public class Book_Activity extends AppCompatActivity {
                         Favorite_item item = ds.getValue(Favorite_item.class);
                         if(uID.equals(item.uId) && bookID.equals(item.bookId)){
                             check = false;
+                            del = ds;
                             fav.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
                             break;
                         }
@@ -157,7 +160,11 @@ public class Book_Activity extends AppCompatActivity {
                         fav.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(Book_Activity.this, "Đã có", Toast.LENGTH_LONG).show();
+                                del.getRef().removeValue();
+                                Toast.makeText(Book_Activity.this, "Đã bỏ thích!", Toast.LENGTH_LONG).show();
+                                Intent intent = getIntent();
+                                finish();
+                                startActivity(intent);
                             }
                         });
                     }
@@ -167,7 +174,7 @@ public class Book_Activity extends AppCompatActivity {
                 public void onCancelled(DatabaseError databaseError) {
                 }
             };
-            moviesRef.addListenerForSingleValueEvent(eventListener);
+            bookRef.addListenerForSingleValueEvent(eventListener);
         }
         else{
             fav.setOnClickListener(new View.OnClickListener() {

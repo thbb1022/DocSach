@@ -98,7 +98,7 @@ public class FavoriteFragment extends Fragment {
         if (user != null) {
             uID = user.getUid().toString();
             DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-            DatabaseReference moviesRef = rootRef.child("Favorite");
+            DatabaseReference bookRef = rootRef.child("Favorite");
             ValueEventListener eventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -128,7 +128,7 @@ public class FavoriteFragment extends Fragment {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {}
             };
-            moviesRef.addListenerForSingleValueEvent(eventListener);
+            bookRef.addListenerForSingleValueEvent(eventListener);
         }
         return view;
     }
