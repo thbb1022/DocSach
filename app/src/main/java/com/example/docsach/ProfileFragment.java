@@ -136,25 +136,25 @@ public class ProfileFragment extends Fragment {
             ValueEventListener eventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         Favorite_item item = ds.getValue(Favorite_item.class);
                         String id = item.uId;
-                        if(id.equals(uID) ){
+                        if (id.equals(uID)) {
                             Log.d("aaa", uID);
                             String stt = item.bookId;
-                            for(Book b: lstRoot){
-                                if(stt.equals(b.getStt().toString()) ){
+                            for (Book b : lstRoot) {
+                                 if (stt.equals(b.getStt().toString())) {
                                     lstBook.add(b);
-                                }
                             }
                         }
-                    }
-                    //display
-                    RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(context, lstBook);
-                    RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recycleview_favorite_id);
-                    recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
-                    recyclerView.setAdapter(myAdapter);
+                        //display
+                        RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(context, lstBook);
+                        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycleview_favorite_id);
+                        recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
+                        recyclerView.setAdapter(myAdapter);
 
+                    }
+                }
                 }
 
                 @Override

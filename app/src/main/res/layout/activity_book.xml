@@ -37,8 +37,8 @@
 
         <Button
             android:id="@+id/favbutton"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
+            android:layout_width="71dp"
+            android:layout_height="66dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginLeft="335dp"

@@ -108,37 +108,7 @@ public class Book_Activity extends AppCompatActivity {
 
             }
         });
-        doctruyen.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-
-            public void onClick(View view) {
-                Intent docTruyen = new Intent(getApplicationContext(), Content.class);
-                docTruyen.putExtra("stt", stt);
-                docTruyen.putExtra("TenTruyen", Title);
-                docTruyen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getApplicationContext().startActivity(docTruyen);
-
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
-                    String uID = user.getUid().toString();
-                    String bookID = stt;
-                    //write data
-                    if(i==4)
-                    {
-                        i = 1;
-                    }
-                    mDatabase = FirebaseDatabase.getInstance().getReference();
-                    Favorite_item fv = new Favorite_item(uID, bookID);
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    String key = String.valueOf(i);
-                    mDatabase.child("Recently").child(key).setValue(fv);
-                    i++;
-                }
-
-
-            }
-        });
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         fav.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
@@ -203,7 +173,86 @@ public class Book_Activity extends AppCompatActivity {
             fav.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(Book_Activity.this, "Yew cần đăng nhập để xài!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Book_Activity.this, "Login để sử dụng chắc năng!", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
+        if (user != null) {
+            uID = user.getUid().toString();
+            bookID = stt;
+            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference recRef = rootRef.child("Recently");
+            ValueEventListener eventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        Favorite_item item = ds.getValue(Favorite_item.class);
+                        if(uID.equals(item.uId) && bookID.equals(item.bookId)){
+                            check = false;
+                            break;
+                        }
+                    }
+                    if(check!=false) {
+                        doctruyen.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent docTruyen = new Intent(getApplicationContext(), Content.class);
+                                docTruyen.putExtra("stt", stt);
+                                docTruyen.putExtra("TenTruyen", Title);
+                                docTruyen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                getApplicationContext().startActivity(docTruyen);
+
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                if (user != null) {
+                                    String uID = user.getUid().toString();
+                                    String bookID = stt;
+                                    //
+                                    //write data
+                                    if(i==4)
+                                    {
+                                        i = 1;
+                                    }
+                                    mDatabase = FirebaseDatabase.getInstance().getReference();
+                                    Favorite_item fv = new Favorite_item(uID, bookID);
+                                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                    String key = String.valueOf(i);
+                                    mDatabase.child("Recently").child(key).setValue(fv);
+                                    i++;
+                                }
+                            }
+                        });
+                    }
+                    else{
+                        doctruyen.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent docTruyen = new Intent(getApplicationContext(), Content.class);
+                                docTruyen.putExtra("stt", stt);
+                                docTruyen.putExtra("TenTruyen", Title);
+                                docTruyen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                getApplicationContext().startActivity(docTruyen);
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            };
+            recRef.addValueEventListener(eventListener);
+        }
+        else{
+            doctruyen.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent docTruyen = new Intent(getApplicationContext(), Content.class);
+                    docTruyen.putExtra("stt", stt);
+                    docTruyen.putExtra("TenTruyen", Title);
+                    docTruyen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    getApplicationContext().startActivity(docTruyen);
                 }
             });
         }
