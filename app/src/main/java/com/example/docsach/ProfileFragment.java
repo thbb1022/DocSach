@@ -1,11 +1,13 @@
 package com.example.docsach;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -23,6 +25,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,7 +43,13 @@ public class ProfileFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    List<String> bookId_list;
+    List<Book> lstRoot;
+    List<Book> lstBook;
+    List<Favorite_item> fv_list;
+    FirebaseUser user;
+    String uID;
+    View view;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -67,6 +78,7 @@ public class ProfileFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
     public static final String TAG = MainActivity.class.getSimpleName(); //debug log
@@ -75,7 +87,7 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        final View view = inflater.inflate(R.layout.fragment_profile, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById((R.id.recycleview_id));
         Button btnLogOut = (Button)view.findViewById(R.id.btnLogout);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -108,6 +120,51 @@ public class ProfileFragment extends Fragment {
             });
 
         }
+        //view =  inflater.inflate(R.layout.fragment_profile, container, false);
+        final Context context = container.getContext();
+
+        fv_list = new ArrayList<>();
+        lstBook = new ArrayList<>();
+        myData m = new myData();
+        lstRoot = m.myList();
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            uID = user.getUid();
+            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference moviesRef = rootRef.child("Recently");
+            ValueEventListener eventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                        Favorite_item item = ds.getValue(Favorite_item.class);
+                        String id = item.uId;
+                        if(id.equals(uID) ){
+                            Log.d("aaa", uID);
+                            int st = Integer.parseInt(item.bookId) -1;
+                            String stt = String.valueOf(st);
+                            for(Book b: lstRoot){
+                                if(stt.equals(b.getStt().toString()) ){
+                                    lstBook.add(b);
+                                }
+                            }
+                        }
+                    }
+                    //display
+                    RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(context, lstBook);
+                    RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.recycleview_favorite_id);
+                    recyclerView.setLayoutManager(new GridLayoutManager(context, 3));
+                    recyclerView.setAdapter(myAdapter);
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {}
+            };
+            moviesRef.addListenerForSingleValueEvent(eventListener);
+        }
+
+
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
