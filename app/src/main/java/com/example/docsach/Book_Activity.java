@@ -3,10 +3,14 @@ package com.example.docsach;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -21,19 +25,24 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class Book_Activity extends AppCompatActivity {
-    private TextView tvTitle, tvTG,tvTL,tvTT,tvMT;
+    private TextView tvTitle, tvTG, tvTL, tvTT, tvMT;
     private ImageView img;
-    private ImageButton fav;
+    private Button fav;
     private Button doctruyen;
+    FirebaseUser user;
+    String uID;
     String Title;
     static  int i = 1;
     Bookitem truyen;
     private DatabaseReference mDatabase;
     String stt;
+    boolean check = true;
+    String bookID;
+    DataSnapshot del;
+
     @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,19 +56,19 @@ public class Book_Activity extends AppCompatActivity {
 
         setContentView(R.layout.activity_book);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myData = database.getReference();
-        fav = (ImageButton) findViewById(R.id.favbutton);
+        final DatabaseReference myData = database.getReference();
+        fav = (Button) findViewById(R.id.favbutton);
         doctruyen = (Button) findViewById(R.id.btnAddTruyen);
         tvTitle = (TextView) findViewById(R.id.txtTitle);
-        tvTG=(TextView) findViewById(R.id.txtTacGia);
-        tvTT=(TextView) findViewById(R.id.txtTenTruyen);
-        tvTL =(TextView)findViewById(R.id.txtTheLoai);
-        tvMT =(TextView) findViewById(R.id.tvMota) ;
+        tvTG = (TextView) findViewById(R.id.txtTacGia);
+        tvTT = (TextView) findViewById(R.id.txtTenTruyen);
+        tvTL = (TextView) findViewById(R.id.txtTheLoai);
+        tvMT = (TextView) findViewById(R.id.tvMota);
         img = (ImageView) findViewById(R.id.bookthumbnail);
 
         Intent intent = getIntent();
         Title = intent.getExtras().getString("Title");
-        int image = intent.getExtras().getInt("Thumbnail");
+        final int image = intent.getExtras().getInt("Thumbnail");
         stt = intent.getExtras().getString("stt");
         stt = String.valueOf(Integer.parseInt(stt) + 1);
         tvTitle.setText(Title);
@@ -69,7 +78,7 @@ public class Book_Activity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 truyen = dataSnapshot.getValue(Bookitem.class);
-                if(truyen.BookID.contains(stt)){
+                if (truyen.BookID.contains(stt)) {
                     tvTG.setText(truyen.BookAuthor);
                     tvTitle.setText(truyen.BookName);
                     tvTL.setText(truyen.BookCategory);
@@ -117,10 +126,7 @@ public class Book_Activity extends AppCompatActivity {
                     if(i==4)
                     {
                         i = 1;
-
-
                     }
-
                     mDatabase = FirebaseDatabase.getInstance().getReference();
                     Favorite_item fv = new Favorite_item(uID, bookID);
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -132,28 +138,73 @@ public class Book_Activity extends AppCompatActivity {
 
             }
         });
-        fav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
-                    String uID = user.getUid().toString();
-                    String bookID = stt;
-                    //write data
-                    mDatabase = FirebaseDatabase.getInstance().getReference();
-                    Favorite_item fv = new Favorite_item(uID, bookID);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        fav.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
 
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    String key = database.getReference("Favorite").push().getKey();//generate fav_id
+        if (user != null) {
+            uID = user.getUid().toString();
+            bookID = stt;
+            DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference bookRef = rootRef.child("Favorite");
+            ValueEventListener eventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        Favorite_item item = ds.getValue(Favorite_item.class);
+                        if(uID.equals(item.uId) && bookID.equals(item.bookId)){
+                            check = false;
+                            del = ds;
+                            fav.setBackgroundResource(R.drawable.ic_baseline_favorite_24);
+                            break;
+                        }
+                    }
 
-                    mDatabase.child("Favorite").child(key).setValue(fv);
+                    if(check != false){
+                        fav.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+                        fav.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //write data
+                                mDatabase = FirebaseDatabase.getInstance().getReference();
+                                Favorite_item fv = new Favorite_item(uID, bookID);
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                String key = database.getReference("Favorite").push().getKey();//generate fav_id
+                                mDatabase.child("Favorite").child(key).setValue(fv);
+                                Toast.makeText(Book_Activity.this, "Đã thêm truyện vào danh sách yêu thích!", Toast.LENGTH_LONG).show();
+                                Intent intent = getIntent();
+                                finish();
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                    else{
+                        fav.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                del.getRef().removeValue();
+                                Toast.makeText(Book_Activity.this, "Đã bỏ thích!", Toast.LENGTH_LONG).show();
+                                Intent intent = getIntent();
+                                finish();
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                }
 
-                    Toast.makeText(Book_Activity.this,"Đã thêm truyện vào danh sách yêu thích!",Toast.LENGTH_LONG).show();
-                }else
-                    Toast.makeText(Book_Activity.this,"Bạn cần phải đăng nhập trước đã!",Toast.LENGTH_LONG).show();
-
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            };
+            bookRef.addListenerForSingleValueEvent(eventListener);
+        }
+        else{
+            fav.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(Book_Activity.this, "Yew cần đăng nhập để xài!", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 }
