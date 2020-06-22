@@ -47,7 +47,8 @@ public class Content extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 content = dataSnapshot.getValue(Bookitem.class);
-                if(content.BookID.contains(stt)){
+                String id = content.BookID;
+                if(id.equals(stt)){
                     textView.setText(content.BookContent);
                 }
             }

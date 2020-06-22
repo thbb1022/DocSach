@@ -70,7 +70,7 @@ public class Book_Activity extends AppCompatActivity {
         Title = intent.getExtras().getString("Title");
         final int image = intent.getExtras().getInt("Thumbnail");
         stt = intent.getExtras().getString("stt");
-        stt = String.valueOf(Integer.parseInt(stt) + 1);
+        Log.d("aaaaaa", stt);
         tvTitle.setText(Title);
 
         img.setImageResource(image);
@@ -78,7 +78,8 @@ public class Book_Activity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 truyen = dataSnapshot.getValue(Bookitem.class);
-                if (truyen.BookID.contains(stt)) {
+                String id = truyen.BookID;
+                if (id.equals(stt)) {
                     tvTG.setText(truyen.BookAuthor);
                     tvTitle.setText(truyen.BookName);
                     tvTL.setText(truyen.BookCategory);

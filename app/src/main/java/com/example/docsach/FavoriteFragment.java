@@ -109,9 +109,7 @@ public class FavoriteFragment extends Fragment {
                             Log.d("aaa", uID);
                             String stt = item.bookId;
                             for(Book b: lstRoot){
-                                int x =Integer.parseInt(stt) - 1;
-                                String s = String.valueOf(x);
-                                if(s.equals(b.getStt().toString()) ){
+                                if(stt.equals(b.getStt().toString()) ){
                                     lstBook.add(b);
                                 }
                             }

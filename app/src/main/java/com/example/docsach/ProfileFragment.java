@@ -141,8 +141,7 @@ public class ProfileFragment extends Fragment {
                         String id = item.uId;
                         if(id.equals(uID) ){
                             Log.d("aaa", uID);
-                            int st = Integer.parseInt(item.bookId) -1;
-                            String stt = String.valueOf(st);
+                            String stt = item.bookId;
                             for(Book b: lstRoot){
                                 if(stt.equals(b.getStt().toString()) ){
                                     lstBook.add(b);
