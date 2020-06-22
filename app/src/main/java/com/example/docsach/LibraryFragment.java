@@ -76,7 +76,7 @@ public class LibraryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_library, container, false);
         RecyclerView recyclerView1 = (RecyclerView) view.findViewById(R.id.tienHiep);
         RecyclerView recyclerView2 = (RecyclerView) view.findViewById(R.id.huyenHuyen);
-        RecyclerView recyclerView3 = (RecyclerView) view.findViewById(R.id.kinhDi);
+        RecyclerView recyclerView3 = (RecyclerView) view.findViewById(R.id.diGioi);
         //
         init();
         chiaTheLoai();
@@ -114,7 +114,7 @@ public class LibraryFragment extends Fragment {
                 lstBook1.add(item);
             }else if(item.getCategory().toString() == "Huyền huyễn"){
                 lstBook2.add(item);
-            }else if(item.getCategory().toString() == "Kinh dị") {
+            }else if(item.getCategory().toString() == "Dị giới") {
                 lstBook3.add(item);
             }
         }
